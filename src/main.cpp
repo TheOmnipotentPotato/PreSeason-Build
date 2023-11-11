@@ -122,6 +122,7 @@ void opcontrol() {
 	}};
 
 	//--Odom Control Task--// 
+	/*
 	pros::Task odm{[=] {
 		while (ODM)
 		{
@@ -132,6 +133,8 @@ void opcontrol() {
 		}
 		
 	}};
+	*/
+
 
 	//--Intake Control Task--//
 	pros::Task intake { [=]{ 
