@@ -1,8 +1,10 @@
 #include "main.h"
+#define FIX_RFR_RATE 105
+
 
 void cata_down(){
     Cata_Mtrs.set_brake_modes(MOTOR_BRAKE_HOLD);
-    while (!Cata_Limit.get_value())
+    while ((int)load_check.get() >= FIX_RFR_RATE)
     {
         Cata_Mtrs.move(127);
     }
@@ -18,7 +20,7 @@ void cata_up(){
 
 void cata_fire(){
     Cata_Mtrs.set_brake_modes(MOTOR_BRAKE_HOLD);
-    while(Cata_Limit.get_value()){
+    while((int)load_check.get() <= FIX_RFR_RATE){
         Cata_Mtrs.move(127);
     }
     cata_down();

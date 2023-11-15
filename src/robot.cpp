@@ -21,7 +21,7 @@ pros::Motor Intake_Mtr(19, MOTOR_GEAR_200, false, MOTOR_ENCODER_DEGREES);
 
 //Smart Devices
 pros::Imu imu(21);
-pros::Distance load_check(6);
+pros::Distance load_check(7);
 
 //Tri-Port Devices
 pros::ADIDigitalIn Cata_Limit(8);
