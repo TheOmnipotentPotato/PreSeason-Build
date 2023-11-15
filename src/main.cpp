@@ -116,7 +116,7 @@ void opcontrol() {
 			int y = con.get_analog(ANALOG_LEFT_Y);
 
 			DT_Right.move(-1*(y + x));
-			DT_Left.move(x - y);
+			DT_Left.move(y - x);
 			pros::delay(20);
 		}
 	}};
