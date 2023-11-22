@@ -9,7 +9,7 @@
 void initialize() {
 	imu.reset();
 	pros::lcd::initialize();
-	cata_rot_sense.reset_position();
+	
 
 }
 
@@ -60,23 +60,21 @@ void opcontrol() {
 	static int INTAKE_SPEED = 127;
 	const static bool PID = true;
 	const static bool ODM = true;
-	const static double CATA_ANGLE = 180;
 
 	
 	
-	Intake_Mtr.set_brake_mode(MOTOR_BRAKE_COAST);
-
 	
 	
 	//--Cata Control Task--//
 	pros::Task cata{[=] {
 		//set start position
-		//cata_down();
-		//
+		cata_down();
+		
 		while(true)
 		{
-			if(con.get_digital_new_press(DIGITAL_R1)){cata_fire(CATA_ANGLE);}
-			if(con.get_digital_new_press(DIGITAL_R2)){cata_down(CATA_ANGLE);}
+			std::cout << "Angle Sensor Reads: " << cata_rot_sense.get_angle() << std::endl;
+			if(con.get_digital_new_press(DIGITAL_R1)){cata_fire();}
+			if(con.get_digital_new_press(DIGITAL_R2)){cata_down();}
 			if(con.get_digital_new_press(DIGITAL_UP)){cata_up();}
 			pros::delay(20);
 		}
