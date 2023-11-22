@@ -1,6 +1,6 @@
 #include "main.h"
 #include <iostream>
-#define REST_ANGLE 200
+#define REST_ANGLE 20000
 
 //MMMMMM Variables in the global scope and functions with side effects :)
 
@@ -31,5 +31,6 @@ void cata_fire(){
     while(cata_rot_sense.get_angle() > REST_ANGLE){
         Cata_Mtrs.move(127);
     }
+    pros::delay(1000);
     cata_down();
 }

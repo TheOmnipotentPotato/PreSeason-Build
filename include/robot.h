@@ -20,7 +20,7 @@ extern pros::Imu imu;
 extern pros::Rotation cata_rot_sense;
 
 //Tri-Port Devices
-extern pros::ADIDigitalIn Cata_Limit;
+extern pros::ADIDigitalOut wings_pistons;
 
 
 //Motor groups

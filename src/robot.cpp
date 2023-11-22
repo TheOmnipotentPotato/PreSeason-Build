@@ -23,8 +23,8 @@ pros::Motor Intake_Mtr(19, MOTOR_GEAR_200, false, MOTOR_ENCODER_DEGREES);
 pros::Imu imu(21);
 pros::Rotation cata_rot_sense(7);
 
-//Tri-Port Devices
-pros::ADIDigitalIn Cata_Limit(8);
+//Tri Port Devices
+pros::ADIDigitalOut wings_pistons(1);
 
 //Motor Groups
 pros::Motor_Group Cata_Mtrs({Cata_Mtr_Left, Cata_Mtr_Right});

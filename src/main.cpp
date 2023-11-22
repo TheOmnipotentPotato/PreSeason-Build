@@ -115,6 +115,8 @@ void opcontrol() {
 			if(con.get_digital(DIGITAL_L1)){Intake_Mtr.move(INTAKE_SPEED);}
 			if(con.get_digital(DIGITAL_L2)){Intake_Mtr.move(-INTAKE_SPEED);}
 			if(!con.get_digital(DIGITAL_L1) && !con.get_digital(DIGITAL_L2)){Intake_Mtr.move(0);Intake_Mtr.brake();}
+			if(con.get_digital(DIGITAL_A)){wings_pistons.set_value(true);}
+			if(con.get_digital(DIGITAL_B)){wings_pistons.set_value(false);}
 			pros::delay(20);
 		}
 	}};
