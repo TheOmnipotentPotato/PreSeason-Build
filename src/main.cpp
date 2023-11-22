@@ -9,7 +9,7 @@
 void initialize() {
 	imu.reset();
 	pros::lcd::initialize();
-	cata_rot_sens.reset_position();
+	cata_rot_sense.reset_position();
 
 }
 
@@ -75,8 +75,8 @@ void opcontrol() {
 		//
 		while(true)
 		{
-			if(con.get_digital_new_press(DIGITAL_R1)){cata_fire();}
-			if(con.get_digital_new_press(DIGITAL_R2)){cata_down();}
+			if(con.get_digital_new_press(DIGITAL_R1)){cata_fire(CATA_ANGLE);}
+			if(con.get_digital_new_press(DIGITAL_R2)){cata_down(CATA_ANGLE);}
 			if(con.get_digital_new_press(DIGITAL_UP)){cata_up();}
 			pros::delay(20);
 		}
