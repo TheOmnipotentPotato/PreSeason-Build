@@ -17,7 +17,7 @@ extern pros::Motor Intake_Mtr;
 
 //Smart Devices
 extern pros::Imu imu;
-extern pros::Distance load_check;
+extern pros::Rotation cata_rot_sens;
 
 //Tri-Port Devices
 extern pros::ADIDigitalIn Cata_Limit;

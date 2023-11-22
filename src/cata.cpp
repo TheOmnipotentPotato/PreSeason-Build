@@ -1,10 +1,10 @@
 #include "main.h"
-#define FIX_RFR_RATE 105
 
 
-void cata_down(){
+
+void cata_down(double angle){
     Cata_Mtrs.set_brake_modes(MOTOR_BRAKE_HOLD);
-    while ((int)load_check.get() >= FIX_RFR_RATE)
+    while (cata_rot_sens.get_angle() < angle)
     {
         Cata_Mtrs.move(127);
     }
@@ -18,9 +18,9 @@ void cata_up(){
     Cata_Mtrs.brake();
 }
 
-void cata_fire(){
+void cata_fire(double angle){
     Cata_Mtrs.set_brake_modes(MOTOR_BRAKE_HOLD);
-    while((int)load_check.get() <= FIX_RFR_RATE){
+    while(cata_rot_sens.get_angle() > angle){
         Cata_Mtrs.move(127);
     }
     cata_down();

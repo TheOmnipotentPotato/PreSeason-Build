@@ -1,22 +1,6 @@
 #include "main.h"
 
 /**
- * A callback function for LLEMU's center button.
- *
- * When this callback is fired, it will toggle line 2 of the LCD text between
- * "I was pressed!" and nothing.
- */
-void on_center_button() {
-	static bool pressed = false;
-	pressed = !pressed;
-	if (pressed) {
-		pros::lcd::set_text(2, "I was pressed!");
-	} else {
-		pros::lcd::clear_line(2);
-	}
-}
-
-/**
  * Runs initialization code. This occurs as soon as the program is started.
  *
  * All other competition modes are blocked by initialize; it is recommended
@@ -24,11 +8,9 @@ void on_center_button() {
  */
 void initialize() {
 	imu.reset();
-	
 	pros::lcd::initialize();
-	pros::lcd::set_text(1, "Hello PROS User!");
+	cata_rot_sens.reset_position();
 
-	pros::lcd::register_btn1_cb(on_center_button);
 }
 
 /**
@@ -62,19 +44,7 @@ void competition_initialize() {}
  */
 void autonomous() {}
 
-/**
- * Runs the operator control code. This function will be started in its own task
- * with the default priority and stack size whenever the robot is enabled via
- * the Field Management System or the VEX Competition Switch in the operator
- * control mode.
- *
- * If no competition control is connected, this function will run immediately
- * following initialize().
- *
- * If the robot is disabled or communications is lost, the
- * operator control task will be stopped. Re-enabling the robot will restart the
- * task, not resume it from where it left off.
- */
+
 
 //--Controll Map--//
 //L1 -> Intake
@@ -88,16 +58,20 @@ void autonomous() {}
 void opcontrol() {
 	//--constants--//
 	static int INTAKE_SPEED = 127;
-	static bool PID = true;
-	static bool ODM = true;
+	const static bool PID = true;
+	const static bool ODM = true;
+	const static double CATA_ANGLE = 180;
+
+	
 	
 	Intake_Mtr.set_brake_mode(MOTOR_BRAKE_COAST);
 
 	
+	
 	//--Cata Control Task--//
 	pros::Task cata{[=] {
 		//set start position
-		cata_down();
+		//cata_down();
 		//
 		while(true)
 		{
@@ -138,7 +112,7 @@ void opcontrol() {
 
 	//--Intake Control Task--//
 	pros::Task intake { [=]{ 
-		while(1)
+		while(true)
 		{
 			if(con.get_digital(DIGITAL_L1)){Intake_Mtr.move(INTAKE_SPEED);}
 			if(con.get_digital(DIGITAL_L2)){Intake_Mtr.move(-INTAKE_SPEED);}
