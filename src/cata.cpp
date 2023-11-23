@@ -1,6 +1,6 @@
 #include "main.h"
 #include <iostream>
-#define REST_ANGLE 20000
+#define REST_ANGLE 19900
 
 //MMMMMM Variables in the global scope and functions with side effects :)
 
@@ -11,9 +11,6 @@ void cata_down(){
     Cata_Mtrs.set_brake_modes(MOTOR_BRAKE_HOLD);
     while (cata_rot_sense.get_angle() < REST_ANGLE)
     {
-        std::cout << cata_rot_sense.get_angle() << std::endl;
-        std::cout << "I want to die :)" << std::endl;
-        Intake_Mtr.move(127);
         Cata_Mtrs.move(127);
     }
     Cata_Mtrs.move(0);
@@ -31,6 +28,7 @@ void cata_fire(){
     while(cata_rot_sense.get_angle() > REST_ANGLE){
         Cata_Mtrs.move(127);
     }
-    pros::delay(1000);
+    Cata_Mtrs.move(0);
+    pros::delay(250);
     cata_down();
 }

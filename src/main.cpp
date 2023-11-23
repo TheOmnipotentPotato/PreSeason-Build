@@ -60,6 +60,7 @@ void opcontrol() {
 	static int INTAKE_SPEED = 127;
 	const static bool PID = true;
 	const static bool ODM = true;
+	const static bool CATA_STRESS = false;
 
 	
 	
@@ -72,13 +73,25 @@ void opcontrol() {
 		
 		while(true)
 		{
-			std::cout << "Angle Sensor Reads: " << cata_rot_sense.get_angle() << std::endl;
+	
 			if(con.get_digital_new_press(DIGITAL_R1)){cata_fire();}
 			if(con.get_digital_new_press(DIGITAL_R2)){cata_down();}
 			if(con.get_digital_new_press(DIGITAL_UP)){cata_up();}
+			if(con.get_digital_new_press(DIGITAL_X)){
+				for(int i = 1; i < 50; i++){
+					cata_fire();
+					std::cout << i << std::endl;
+				}
+			}}
 			pros::delay(20);
+			if(CATA_STRESS){
+				for(int i = 1; i < 50; i++){
+					cata_fire();
+					std::cout << i << std::endl;
+				}
+			}
 		}
-	}};
+	};
 
 	//--Drive Control Task--//
 	pros::Task drive{[=] {
@@ -89,7 +102,7 @@ void opcontrol() {
 
 			DT_Right.move(y + x);
 			DT_Left.move(y - x);
-			pros::delay(20);
+			pros::delay(60);
 		}
 	}};
 
