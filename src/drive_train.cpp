@@ -1,9 +1,8 @@
 #include "main.h"
 
+#define OUT_GEAR_RATIO 72
+#define IN_GEAR_RATIO 36
 
 
 
-void drive(int& x, int& y){
-    DT_Right.move(-1*(y + x));
-	DT_Left.move(x - y);
-}
+

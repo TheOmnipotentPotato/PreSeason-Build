@@ -81,6 +81,9 @@ void opcontrol() {
 				for(int i = 1; i < 50; i++){
 					cata_fire();
 					std::cout << i << std::endl;
+					if(con.get_digital(DIGITAL_Y)){
+						break;
+					}
 				}
 			}}
 			pros::delay(20);
@@ -97,7 +100,7 @@ void opcontrol() {
 	pros::Task drive{[=] {
 		while(true)
 		{	
-			int y = -con.get_analog(ANALOG_LEFT_Y);
+			int y = con.get_analog(ANALOG_LEFT_Y);
 			int x = con.get_analog(ANALOG_RIGHT_X);
 
 			DT_Right.move(y + x);

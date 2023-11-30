@@ -30,3 +30,4 @@ pros::ADIDigitalOut wings_pistons(1);
 pros::Motor_Group Cata_Mtrs({Cata_Mtr_Left, Cata_Mtr_Right});
 pros::Motor_Group DT_Right({DT_Right_Back, DT_Right_Front});
 pros::Motor_Group DT_Left({DT_Left_Back, DT_Left_Front});
+pros::Motor_Group DT({DT_Left_Back, DT_Left_Front, DT_Right_Back, DT_Right_Front});

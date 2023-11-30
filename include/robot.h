@@ -27,3 +27,4 @@ extern pros::ADIDigitalOut wings_pistons;
 extern pros::Motor_Group Cata_Mtrs;
 extern pros::Motor_Group DT_Right;
 extern pros::Motor_Group DT_Left;
+extern pros::Motor_Group DT;
