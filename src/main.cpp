@@ -46,6 +46,8 @@ void autonomous() {
 	drive_for(4, 50);
 	
 	turn_for(90, 50);
+
+	turn_for_2(90, 50);
 	
 }
 
