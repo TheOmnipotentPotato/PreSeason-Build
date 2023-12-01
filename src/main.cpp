@@ -42,7 +42,12 @@ void competition_initialize() {}
  * will be stopped. Re-enabling the robot will restart the task, not re-start it
  * from where it left off.
  */
-void autonomous() {}
+void autonomous() {
+	drive_for(4, 50);
+	
+	turn_for(90, 50);
+	
+}
 
 
 
