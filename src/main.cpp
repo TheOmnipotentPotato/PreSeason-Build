@@ -1,5 +1,7 @@
 #include "main.h"
 
+
+
 /**
  * Runs initialization code. This occurs as soon as the program is started.
  *
@@ -9,8 +11,6 @@
 void initialize() {
 	imu.reset();
 	pros::lcd::initialize();
-	
-
 }
 
 /**
@@ -43,11 +43,6 @@ void competition_initialize() {}
  * from where it left off.
  */
 void autonomous() {
-	drive_for(4, 50);
-	
-	turn_for(90, 50);
-
-	turn_for_2(90, 50);
 	
 }
 
@@ -60,6 +55,8 @@ void autonomous() {
 //R2 -> Cata Down
 //UP -> Cata Up
 //X -> Wings
+//A -> Open Wings
+//B -> Close Wings
 //--END Control Map--//
 
 void opcontrol() {
@@ -74,34 +71,7 @@ void opcontrol() {
 	
 	
 	//--Cata Control Task--//
-	pros::Task cata{[=] {
-		//set start position
-		cata_down();
-		
-		while(true)
-		{
 	
-			if(con.get_digital_new_press(DIGITAL_R1)){cata_fire();}
-			if(con.get_digital_new_press(DIGITAL_R2)){cata_down();}
-			if(con.get_digital_new_press(DIGITAL_UP)){cata_up();}
-			if(con.get_digital_new_press(DIGITAL_X)){
-				for(int i = 1; i < 50; i++){
-					cata_fire();
-					std::cout << i << std::endl;
-					if(con.get_digital(DIGITAL_Y)){
-						break;
-					}
-				}
-			}}
-			pros::delay(20);
-			if(CATA_STRESS){
-				for(int i = 1; i < 50; i++){
-					cata_fire();
-					std::cout << i << std::endl;
-				}
-			}
-		}
-	};
 
 	//--Drive Control Task--//
 	pros::Task drive{[=] {
@@ -110,63 +80,25 @@ void opcontrol() {
 			int y = con.get_analog(ANALOG_LEFT_Y);
 			int x = con.get_analog(ANALOG_RIGHT_X);
 
-			DT_Right.move(y + x);
-			DT_Left.move(y - x);
+			DT_Right.move(y - x);
+			DT_Left.move(y + x);
 			pros::delay(60);
 		}
 	}};
 
-	//--Odom Control Task--// 
-	/*
-	pros::Task odm{[=] {
-		while (ODM)
-		{
-			pros::c::imu_gyro_s_t gyro = imu.get_gyro_rate();
-			printf("IMU gyro values: {x: %f, y: %f, z: %f}\n", gyro.x, gyro.y, gyro.z);
-            pros::delay(20);
-
-		}
-		
-	}};
-	*/
-
-
+	
 	//--Intake Control Task--//
 	pros::Task intake { [=]{ 
 		while(true)
 		{
-			if(con.get_digital(DIGITAL_L1)){Intake_Mtr.move(INTAKE_SPEED);}
-			if(con.get_digital(DIGITAL_L2)){Intake_Mtr.move(-INTAKE_SPEED);}
-			if(!con.get_digital(DIGITAL_L1) && !con.get_digital(DIGITAL_L2)){Intake_Mtr.move(0);Intake_Mtr.brake();}
-			if(con.get_digital(DIGITAL_A)){wings_pistons.set_value(true);}
-			if(con.get_digital(DIGITAL_B)){wings_pistons.set_value(false);}
+			if(con.get_digital(DIGITAL_R1)){Flywheel_Mtrs.move(127);}
+			if(con.get_digital(DIGITAL_R2)){Flywheel_Mtrs.move(0);}
+			if(con.get_digital(DIGITAL_L1)){wings_pistons.set_value(true);}
+			if(con.get_digital(DIGITAL_L2)){wings_pistons.set_value(false);}
 			pros::delay(20);
 		}
 	}};
 
-	//--Error Controller Task--//
-	pros::Task control{[=]{
-		//--LEFT MOTOR--//
-		int left_mtr_power;
-		int left_mtr_goal;
-		int left_mtr_sensor;
-		int left_mtr_last;
-		int left_mtr_integral;
-		Vec3 left_coef;
-		left_coef.kP = 1.0;
-		left_coef.kD = 1.0;
-		left_coef.kI = 0.0;
-
-		pid(left_mtr_power, left_mtr_goal, left_mtr_sensor, left_mtr_last, left_mtr_integral, left_coef);
-
-
-
-		while (PID)
-		{
-			
-
-		}
-		
-	}};
+	
 
 }

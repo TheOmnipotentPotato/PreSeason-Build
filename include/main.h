@@ -36,7 +36,6 @@
 
 #include "api.h"
 #include "robot.h"
-#include "cata.h"
 #include "drive_train.h"
 #include "PID.h"
 

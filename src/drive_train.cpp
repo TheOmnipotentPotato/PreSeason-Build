@@ -10,7 +10,7 @@
 
 
 
-bool check_drive_motor_done(std::vector<double> positions, double goal_pos){
+bool check_drive_motor_not_done(std::vector<double> positions, double goal_pos){
     if(!(positions[0] < goal_pos -5 && positions[0] > goal_pos +5)){
         return true;
     } 
@@ -34,10 +34,12 @@ void drive_for(double dist, int pow){
     double tot_rev = (OUT_GEAR_RATIO/IN_GEAR_RATIO)*encoder_turns;
     std::vector<double> positions = DT.get_positions();
     DT.move_relative(tot_rev, pow);
-    while(check_drive_motor_done(positions, tot_rev)){
+    /*
+    while(check_drive_motor_not_done(positions, tot_rev)){
         pros::delay(5);
         positions = DT.get_positions();
     }
+    */
 
 }
 
@@ -51,7 +53,7 @@ void turn_for(double angle, int pow){
     DT_Left.set_reversed(true);
     double real_turn_angle = (angle*5)-5;
     DT.move_relative(real_turn_angle, pow);
-    pros::delay(2000);
+    pros::delay(4000);
 }
 
 void turn_for_2(double angle, int pow){
