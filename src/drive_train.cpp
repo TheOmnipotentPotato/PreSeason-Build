@@ -57,12 +57,13 @@ void turn_for(double angle, int pow){
 }
 
 void turn_for_2(double angle, int pow){
-    DT_Left.set_reversed(true);
+    DT_Right.set_reversed(true);
     double revs = (angle*PI*WHEELBASE_WIDTH)/DIAMETER;
     double motor_revs = (OUT_GEAR_RATIO/IN_GEAR_RATIO)*revs;
     //std::vector<double> positions = DT.get_positions();
     DT.move_relative(motor_revs, pow);
     pros::delay(2000);
+    DT_Right.set_reversed(false);
 }
 
 

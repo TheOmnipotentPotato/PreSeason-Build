@@ -1,4 +1,6 @@
 #include "main.h"
+#define SKILLS true
+#define LOAD_TIME 30000
 
 
 
@@ -43,7 +45,28 @@ void competition_initialize() {}
  * from where it left off.
  */
 void autonomous() {
+	if (SKILLS == true){
+		DT.move(60);
+		pros::delay(650);
+		DT.move(0);
+		pros::delay(60);
+		turn_for_2(8.5, -50);
+		pros::delay(20);
+		DT.move(60);
+		pros::delay(600);
+		DT.move(-60);
+		pros::delay(250);
+		DT.move(60);
+		pros::delay(300);
+		DT.move(-60);
+		pros::delay(500);
 	
+
+		
+		Flywheel_Mtrs.move(127);
+		pros::delay(LOAD_TIME);
+
+	}
 }
 
 
@@ -80,8 +103,8 @@ void opcontrol() {
 			int y = con.get_analog(ANALOG_LEFT_Y);
 			int x = con.get_analog(ANALOG_RIGHT_X);
 
-			DT_Right.move(y - x);
-			DT_Left.move(y + x);
+			DT_Right.move(y - ((x > 25 or x < -25) ? x : 0));
+			DT_Left.move(y + ((x > 25 or x < -25) ? x : 0));
 			pros::delay(60);
 		}
 	}};
