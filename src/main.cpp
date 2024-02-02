@@ -46,25 +46,43 @@ void competition_initialize() {}
  */
 void autonomous() {
 	if (SKILLS == true){
+		//push alliance balls in
 		DT.move(60);
 		pros::delay(650);
 		DT.move(0);
-		pros::delay(60);
-		turn_for_2(8.5, -50);
+		pros::delay(20);
+		turn_for_2(4.0, -50);
 		pros::delay(20);
 		DT.move(60);
 		pros::delay(600);
 		DT.move(-60);
-		pros::delay(250);
-		DT.move(60);
 		pros::delay(300);
+		DT.move(60);
+		pros::delay(400);
 		DT.move(-60);
-		pros::delay(500);
-	
-
-		
+		pros::delay(250);
+		DT.move(0);
+		pros::delay(20);
+		turn_for_2(8.5, 50);
+		pros::delay(20);
+		DT.move(-50);
+		pros::delay(100);
+		DT.move(0);
+		pros::delay(20);
+		//run flywheel
 		Flywheel_Mtrs.move(127);
 		pros::delay(LOAD_TIME);
+		Flywheel_Mtrs.move(0);
+		pros::delay(20);
+		//push balls
+		DT.move(60);
+		pros::delay(200);
+		DT.move(0);
+		pros::delay(20);
+		turn_for_2(8.5, 50);
+		pros::delay(20);
+		DT.move(60);
+		pros::delay(1000);
 
 	}
 }
